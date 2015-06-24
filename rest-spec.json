@@ -1,0 +1,131 @@
+{
+  "info": {
+    "title": "Cars Sample API",
+    "id": "carsAPI",
+    "description": "This is a sample API for generation testing.",
+    "contact": {
+      "name": "Connective DX",
+      "url": "http://connectivedx.com"
+    },
+    "version": "1.0.1"
+  },
+  "host": "http://localhost:9000",
+
+  "paths": {
+    "/cars": {
+      "get": {
+        "operationId": "getCars",
+        "description": "Returns all cars.",
+        "responses": {
+          "200": {
+            "description": "A collection of cars.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/car"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createCar",
+        "description": "Adds a new car to the system.",
+        "parameters": [
+          {
+            "name": "car",
+            "in": "body",
+            "description": "The car object to add.",
+            "required": true,
+            "type": "object"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The newly created car record.",
+            "schema": {
+              "$ref": "#/definitions/car"
+            }
+          }
+        }
+      }
+    },
+    "/cars/{carID}": {
+      "get": {
+        "operationId": "getCarByID",
+        "description": "Returns a specific car by.",
+        "responses": {
+          "200": {
+            "description": "The car specified by the ID.",
+            "schema": {
+              "$ref": "#/definitions/car"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "updateCar",
+        "description": "Updates the specified car.",
+        "parameters": [
+          {
+            "name": "car",
+            "in": "body",
+            "description": "The updated car object.",
+            "required": true,
+            "type": "object"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The updated car record.",
+            "schema": {
+              "$ref": "#/definitions/car"
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteCar",
+        "description": "Deletes the specified car.",
+        "responses": {
+          "200": {
+            "description": "Confirmation of deletion.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "carID",
+          "in": "path",
+          "description": "ID of car to retrieve",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    }
+  },
+  
+  "definitions": {
+    "car": {
+      "properties": {
+        "make": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "year": {
+          "type": "integer"
+        },
+        "color": {
+          "type": "string"
+        }
+      },
+      "required": ["make", "model", "year", "color"],
+      "type": "object"
+    }
+  }
+}
